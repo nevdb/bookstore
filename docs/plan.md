@@ -478,10 +478,10 @@ src/
 - [x] Setup database migrations and seeders
 - [x] Create User (with role field), Book, Author, Genre, UserBooks models
 - [x] Setup Laravel Sanctum authentication with role support
-- [ ] Create Role middleware (admin vs user)
-- [ ] Initialize React project with Create React App or Vite
-- [ ] Configure Axios and environment variables
-- [ ] Setup folder structure and components
+- [x] Create Role middleware (admin vs user)
+- [x] Initialize React project with Create React App or Vite
+- [x] Configure Axios and environment variables
+- [x] Setup folder structure and components (basic auth scaffold complete)
 
 ### Phase 2: Authentication & User Management with Roles
 
