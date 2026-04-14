@@ -485,14 +485,14 @@ src/
 
 ### Phase 2: Authentication & User Management with Roles
 
-- [ ] Backend: User registration/login API (set default user role)
-- [ ] Backend: Password reset functionality
-- [ ] Backend: Get current user info including role
-- [ ] Frontend: Login/Signup forms and pages
-- [ ] Frontend: Authentication context and hooks (include role)
-- [ ] Frontend: Protected routes and admin routes
-- [ ] Frontend: Role-aware navigation (display different menus for admin/user)
-- [ ] Testing: Auth flow testing with role checks
+- [x] Backend: User registration/login API (set default user role)
+- [x] Backend: Password reset functionality
+- [x] Backend: Get current user info including role
+- [x] Frontend: Login/Signup forms and pages
+- [x] Frontend: Authentication context and hooks (include role)
+- [x] Frontend: Protected routes and admin routes
+- [x] Frontend: Role-aware navigation (display different menus for admin/user)
+- [x] Testing: Auth flow testing with role checks
 
 ### Phase 3: System Books Library (Admin & User Read)
 
