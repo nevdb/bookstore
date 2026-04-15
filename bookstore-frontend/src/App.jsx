@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import UserDashboard from "./pages/UserDashboard";
+import AdminUsersManagement from "./pages/AdminUsersManagement";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import AdminRoute from "./components/Auth/AdminRoute";
 
@@ -34,6 +35,14 @@ export default function App() {
             element={
               <AdminRoute>
                 <div>Admin Dashboard - Coming Soon</div>
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <AdminRoute>
+                <AdminUsersManagement />
               </AdminRoute>
             }
           />

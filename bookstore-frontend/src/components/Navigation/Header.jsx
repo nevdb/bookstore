@@ -42,11 +42,18 @@ export default function Header() {
                   <>
                     <span className="admin-badge">Admin</span>
                     <Link
+                      to="/admin/users"
+                      className="nav-link admin-link"
+                      title="Manage Users"
+                    >
+                      Users
+                    </Link>
+                    <Link
                       to="/admin/books"
                       className="nav-link admin-link"
                       title="Manage Books"
                     >
-                      Manage
+                      Books
                     </Link>
                   </>
                 )}

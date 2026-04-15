@@ -1,0 +1,201 @@
+.users-table-container {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-message {
+  background-color: #fee;
+  border: 1px solid #faa;
+  color: #c33;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+  color: #7f8c8d;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.users-table thead {
+  background-color: #f8f9fa;
+}
+
+.users-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #2c3e50;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.users-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  color: #34495e;
+}
+
+.users-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.role-admin {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.role-user {
+  background-color: #27ae60;
+  color: white;
+}
+
+.actions-cell {
+  text-align: center;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action-buttons button {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-promote {
+  background-color: #27ae60;
+  color: white;
+}
+
+.btn-promote:hover:not(:disabled) {
+  background-color: #229954;
+}
+
+.btn-demote {
+  background-color: #f39c12;
+  color: white;
+}
+
+.btn-demote:hover:not(:disabled) {
+  background-color: #e67e22;
+}
+
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-delete:hover:not(:disabled) {
+  background-color: #c0392b;
+}
+
+.action-buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem !important;
+  color: #7f8c8d;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  color: #2c3e50;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .users-table-container {
+    padding: 1rem;
+  }
+
+  .users-table {
+    font-size: 0.9rem;
+  }
+
+  .users-table th,
+  .users-table td {
+    padding: 0.6rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+
+  .pagination {
+    gap: 0.3rem;
+  }
+
+  .pagination button {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
+}

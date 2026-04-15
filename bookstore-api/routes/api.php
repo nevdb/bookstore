@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\AuthorController;
 use App\Http\Controllers\Api\GenreController;
 use App\Http\Controllers\Api\CollectionController;
+use App\Http\Controllers\Api\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('api')->group(function () {
@@ -23,17 +24,29 @@ Route::middleware('api')->group(function () {
         Route::get('/auth/profile', [AuthController::class, 'profile']);
 
         Route::middleware('role:admin')->group(function () {
+            // Book management
             Route::post('/books', [BookController::class, 'store']);
             Route::put('/books/{book}', [BookController::class, 'update']);
             Route::delete('/books/{book}', [BookController::class, 'destroy']);
 
+            // Author management
             Route::post('/authors', [AuthorController::class, 'store']);
             Route::put('/authors/{author}', [AuthorController::class, 'update']);
             Route::delete('/authors/{author}', [AuthorController::class, 'destroy']);
 
+            // Genre management
             Route::post('/genres', [GenreController::class, 'store']);
             Route::put('/genres/{genre}', [GenreController::class, 'update']);
             Route::delete('/genres/{genre}', [GenreController::class, 'destroy']);
+
+            // Admin user management
+            Route::get('/admin/users', [AdminController::class, 'getUsers']);
+            Route::get('/admin/users/{userId}', [AdminController::class, 'getUser']);
+            Route::post('/admin/users/{userId}/make-admin', [AdminController::class, 'makeUserAdmin']);
+            Route::post('/admin/users/{userId}/demote', [AdminController::class, 'demoteAdminUser']);
+            Route::put('/admin/users/{userId}', [AdminController::class, 'updateUser']);
+            Route::delete('/admin/users/{userId}', [AdminController::class, 'deleteUser']);
+            Route::get('/admin/statistics', [AdminController::class, 'getStatistics']);
         });
 
         Route::get('/user/collection', [CollectionController::class, 'index']);
