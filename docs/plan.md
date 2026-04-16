@@ -496,8 +496,8 @@ src/
 
 ### Phase 3: System Books Library (Admin & User Read)
 
-- [ ] Backend: Book list API (all books in system)
-- [ ] Backend: Book detail API
+- [x] Backend: Book list API (all books in system)
+- [x] Backend: Book detail API
 - [ ] Backend: Book search and filter API
 - [ ] Frontend: System books browser component
 - [ ] Frontend: Book details view

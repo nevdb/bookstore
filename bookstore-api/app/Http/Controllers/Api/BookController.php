@@ -62,4 +62,45 @@ class BookController extends Controller
 
         return response()->json(['message' => 'Book deleted']);
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('q', '');
+
+        if (empty($query)) {
+            return response()->json([
+                'message' => 'Search query is required',
+                'data' => [],
+            ], 400);
+        }
+
+        $books = Book::with(['author', 'genre'])
+            ->where('title', 'like', "%{$query}%")
+            ->orWhereHas('author', function($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%");
+            })
+            ->orWhereHas('genre', function($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%");
+            })
+            ->paginate(12);
+
+        return response()->json($books);
+    }
+
+    public function filter(Request $request)
+    {
+        $query = Book::with(['author', 'genre']);
+
+        if ($request->has('genre_id') && !empty($request->get('genre_id'))) {
+            $query->where('genre_id', $request->get('genre_id'));
+        }
+
+        if ($request->has('author_id') && !empty($request->get('author_id'))) {
+            $query->where('author_id', $request->get('author_id'));
+        }
+
+        $books = $query->paginate(12);
+
+        return response()->json($books);
+    }
 }
