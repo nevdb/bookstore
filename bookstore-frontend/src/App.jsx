@@ -5,6 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import UserDashboard from "./pages/UserDashboard";
 import AdminUsersManagement from "./pages/AdminUsersManagement";
+import SystemBooksPage from "./pages/SystemBooksPage";
+import BookDetailPage from "./pages/BookDetailPage";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import AdminRoute from "./components/Auth/AdminRoute";
 
@@ -70,13 +72,19 @@ export default function App() {
               </AdminRoute>
             }
           />
-
-          {/* Placeholder Routes for Phase 3+ */}
           <Route
             path="/books"
             element={
               <ProtectedRoute>
-                <div>Browse System Books - Coming in Phase 3</div>
+                <SystemBooksPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/books/:id"
+            element={
+              <ProtectedRoute>
+                <BookDetailPage />
               </ProtectedRoute>
             }
           />

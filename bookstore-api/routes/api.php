@@ -13,6 +13,8 @@ Route::middleware('api')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login']);
 
     Route::get('/books', [BookController::class, 'index']);
+    Route::get('/books/search', [BookController::class, 'search']);
+    Route::get('/books/filter', [BookController::class, 'filter']);
     Route::get('/books/{book}', [BookController::class, 'show']);
     Route::get('/authors', [AuthorController::class, 'index']);
     Route::get('/authors/{author}', [AuthorController::class, 'show']);
