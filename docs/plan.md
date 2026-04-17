@@ -6,6 +6,19 @@ A full-stack book library web application where users can manage their personal 
 
 ---
 
+## ⚠️ Phase Sequencing Rule
+
+**IMPORTANT:** Before implementing any feature request, check if it's planned for a future phase in this document. If a feature is planned for a later phase (e.g., Phase 5, 6, 7, 11), we should:
+1. Skip implementing it in the current phase
+2. Remind the user that it's scheduled for a future phase
+3. Wait until the planned phase to implement it
+
+**Why?** This ensures proper sequencing, prevents duplicate work, and maintains clean architectural dependencies between phases.
+
+**Example:** If the user asks for "testing setup" during Phases 1-10, remind them it's scheduled for Phase 11 (Testing & Deployment).
+
+---
+
 ## Technology Stack
 
 ### Backend
@@ -510,15 +523,15 @@ src/
 
 ### Phase 4: User Personal Collection Management
 
-- [ ] Backend: Add book to collection API
-- [ ] Backend: Get user's collection API (paginated)
-- [ ] Backend: Update personal book info (rating, status, notes)
-- [ ] Backend: Remove book from collection API
-- [ ] Frontend: My Collection page
-- [ ] Frontend: Add to collection button
-- [ ] Frontend: Update personal book info form
-- [ ] Frontend: Remove from collection confirmation
-- [ ] Testing: Collection management operations
+- [x] Backend: Add book to collection API
+- [x] Backend: Get user's collection API (paginated)
+- [x] Backend: Update personal book info (rating, status, notes)
+- [x] Backend: Remove book from collection API
+- [x] Frontend: My Collection page
+- [x] Frontend: Add to collection button
+- [x] Frontend: Update personal book info form
+- [x] Frontend: Remove from collection confirmation
+- [x] Testing: Collection management operations
 
 ### Phase 5: Admin Book Management (Create, Update, Delete)
 
