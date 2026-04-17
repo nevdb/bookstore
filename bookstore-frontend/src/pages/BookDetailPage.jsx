@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { booksService } from "../services/booksService";
 import "./BookDetailPage.css";
+import collectionService from "../services/collectionService";
 
 const BookDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [inCollection, setInCollection] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -27,6 +32,29 @@ const BookDetailPage = () => {
 
     fetchBook();
   }, [id]);
+
+  const handleAddToCollection = async () => {
+    if (!user) {
+      alert("Please log in first");
+      return;
+    }
+
+    try {
+      setIsAdding(true);
+      await collectionService.addBook(book.id);
+      setInCollection(true);
+      alert("Added to your collection!");
+    } catch (err) {
+      if (err.response?.status === 409) {
+        setInCollection(true);
+        alert("Book already in your collection");
+      } else {
+        alert("Failed to add book");
+      }
+    } finally {
+      setIsAdding(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -81,11 +109,15 @@ const BookDetailPage = () => {
 
       <div className="book-detail-container">
         <div className="book-detail-cover">
-          <img
-            src={book.cover_url || "/default-book.png"}
-            alt={book.title}
-            onError={(e) => (e.target.src = "/default-book.png")}
-          />
+          {!book.cover_url ? (
+            <img src="/default-book.png" alt="Missing cover" />
+          ) : (
+            <img
+              src={book.cover_url || "/default-book.png"}
+              alt={book.title}
+              onError={(e) => (e.target.src = "/default-book.png")}
+            />
+          )}
         </div>
 
         <div className="book-detail-info">
@@ -166,6 +198,16 @@ const BookDetailPage = () => {
                 </div>
               </div>
             )}
+
+          {user && (
+            <button
+              onClick={handleAddToCollection}
+              disabled={inCollection || isAdding}
+              className="btn-add-collection"
+            >
+              {inCollection ? "✓ In Your Collection" : "+ Add to Collection"}
+            </button>
+          )}
 
           <div className="book-detail-actions">
             <button className="add-to-collection-button">

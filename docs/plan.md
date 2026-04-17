@@ -510,10 +510,10 @@ src/
 
 ### Phase 4: User Personal Collection Management
 
-- [ ] Backend: Add book to collection API
-- [ ] Backend: Get user's collection API (paginated)
-- [ ] Backend: Update personal book info (rating, status, notes)
-- [ ] Backend: Remove book from collection API
+- [x] Backend: Add book to collection API
+- [x] Backend: Get user's collection API (paginated)
+- [x] Backend: Update personal book info (rating, status, notes)
+- [x] Backend: Remove book from collection API
 - [ ] Frontend: My Collection page
 - [ ] Frontend: Add to collection button
 - [ ] Frontend: Update personal book info form

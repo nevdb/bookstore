@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 import Header from "./components/Navigation/Header";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -9,8 +10,10 @@ import SystemBooksPage from "./pages/SystemBooksPage";
 import BookDetailPage from "./pages/BookDetailPage";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import AdminRoute from "./components/Auth/AdminRoute";
+import MyCollection from "./pages/MyCollection";
 
 export default function App() {
+  const { user } = useAuth();
   return (
     <div className="app">
       <Header />
@@ -20,7 +23,6 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-
           {/* Protected Routes (Authenticated Users) */}
           <Route
             path="/dashboard"
@@ -30,7 +32,6 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-
           {/* Admin-Only Routes */}
           <Route
             path="/admin/dashboard"
@@ -90,13 +91,8 @@ export default function App() {
           />
           <Route
             path="/my-collection"
-            element={
-              <ProtectedRoute>
-                <div>My Collection - Coming in Phase 4</div>
-              </ProtectedRoute>
-            }
+            element={user ? <MyCollection /> : <Navigate to="/" />}
           />
-
           {/* Catch-all - 404 */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
