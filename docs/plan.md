@@ -514,11 +514,11 @@ src/
 - [x] Backend: Get user's collection API (paginated)
 - [x] Backend: Update personal book info (rating, status, notes)
 - [x] Backend: Remove book from collection API
-- [ ] Frontend: My Collection page
-- [ ] Frontend: Add to collection button
-- [ ] Frontend: Update personal book info form
-- [ ] Frontend: Remove from collection confirmation
-- [ ] Testing: Collection management operations
+- [x] Frontend: My Collection page
+- [x] Frontend: Add to collection button
+- [x] Frontend: Update personal book info form
+- [x] Frontend: Remove from collection confirmation
+- [x] Testing: Collection management operations
 
 ### Phase 5: Admin Book Management (Create, Update, Delete)
 
