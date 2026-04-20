@@ -36,7 +36,7 @@ class BookController extends Controller
 
         $book = Book::create($data);
 
-        return response()->json($book, 201);
+        return response()->json($book->load(['author', 'genre']), 201);
     }
 
     public function update(Request $request, Book $book)
@@ -53,7 +53,7 @@ class BookController extends Controller
 
         $book->update($data);
 
-        return response()->json($book);
+        return response()->json($book->load(['author', 'genre']));
     }
 
     public function destroy(Request $request, Book $book)

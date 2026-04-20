@@ -549,10 +549,10 @@ src/
 
 ### Phase 5: Admin Book Management (Create, Update, Delete)
 
-- [ ] Backend: Create book API (admin only)
-- [ ] Backend: Update book API (admin only)
-- [ ] Backend: Delete book API (admin only)
-- [ ] Backend: Admin-only middleware for book operations
+- [x] Backend: Create book API (admin only)
+- [x] Backend: Update book API (admin only)
+- [x] Backend: Delete book API (admin only)
+- [x] Backend: Admin-only middleware for book operations
 - [ ] Frontend: Admin book management page
 - [ ] Frontend: Create book form (with author/genre selection or creation)
 - [ ] Frontend: Edit book form
