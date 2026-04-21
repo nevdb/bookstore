@@ -9,7 +9,7 @@ const BookSearch = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (query.trim()) {
-      searchBooks(query);
+      searchBooks(query.trim());
     }
   };
 

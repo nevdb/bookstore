@@ -51,17 +51,21 @@ const BookFilter = () => {
     setSelectedAuthor(filters.author_id || "");
   }, [filters]);
 
-  const handleFilterChange = () => {
+  const handleGenreChange = (e) => {
+    const newGenre = e.target.value;
+    setSelectedGenre(newGenre);
     const newFilters = {};
+    if (newGenre) newFilters.genre_id = newGenre;
+    if (selectedAuthor) newFilters.author_id = selectedAuthor;
+    filterBooks(newFilters);
+  };
 
-    if (selectedGenre) {
-      newFilters.genre_id = selectedGenre;
-    }
-
-    if (selectedAuthor) {
-      newFilters.author_id = selectedAuthor;
-    }
-
+  const handleAuthorChange = (e) => {
+    const newAuthor = e.target.value;
+    setSelectedAuthor(newAuthor);
+    const newFilters = {};
+    if (selectedGenre) newFilters.genre_id = selectedGenre;
+    if (newAuthor) newFilters.author_id = newAuthor;
     filterBooks(newFilters);
   };
 
@@ -76,10 +80,7 @@ const BookFilter = () => {
       <div className="filter-controls">
         <select
           value={selectedGenre}
-          onChange={(e) => {
-            setSelectedGenre(e.target.value);
-            handleFilterChange();
-          }}
+          onChange={handleGenreChange}
           className="filter-select"
           disabled={loadingFilters}
         >
@@ -93,10 +94,7 @@ const BookFilter = () => {
 
         <select
           value={selectedAuthor}
-          onChange={(e) => {
-            setSelectedAuthor(e.target.value);
-            handleFilterChange();
-          }}
+          onChange={handleAuthorChange}
           className="filter-select"
           disabled={loadingFilters}
         >

@@ -558,7 +558,7 @@ src/
 - [x] Frontend: Edit book form
 - [x] Frontend: Delete book confirmation
 - [x] Frontend: Admin-only route protection
-- [ ] Testing: Admin-only permission checks
+- [x] Testing: Admin-only permission checks
 
 ### Phase 6: Admin Author Management (Create, Update, Delete)
 
@@ -613,7 +613,7 @@ src/
 
 **Unit Tests (Frontend - Vitest)**
 
-- [ ] Setup Vitest with Vite
+- [x] Setup Vitest with Vite
 - [ ] Write unit tests for React components (Components, Pages, Hooks)
 - [ ] Test utilities (validators, formatters, roleCheck)
 - [ ] Test context providers (AuthContext, BooksContext)
