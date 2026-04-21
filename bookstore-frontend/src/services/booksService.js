@@ -11,15 +11,15 @@ export const booksService = {
 
     // Create new book (admin only)
     createBook: (data) =>
-        API.post(`/api/admin/books`, data),
+        API.post(`/api/books`, data),
 
     // Update book (admin only)
     updateBook: (bookId, data) =>
-        API.put(`/api/admin/books/${bookId}`, data),
+        API.put(`/api/books/${bookId}`, data),
 
     // Delete book (admin only)
-    deleteBook: (bookId, data) =>
-        API.delete(`/api/admin/books/${bookId}`, data),
+    deleteBook: (bookId) =>
+        API.delete(`/api/books/${bookId}`),
 
     // Search books by title, author, or genre
     searchBooks: (query) =>
