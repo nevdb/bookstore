@@ -6,15 +6,15 @@ import CreateAuthorModal from "../AdminPanel/CreateAuthorModal";
 import CreateGenreModal from "../AdminPanel/CreateGenreModal";
 import "./BookCreateForm.css";
 
-export default function BookCreateForm({ onSuccess, onCancel }) {
+export default function EditBookForm({ book, onSuccess, onCancel }) {
   const [formData, setFormData] = useState({
-    title: "",
-    isbn: "",
-    publication_year: "",
-    description: "",
-    pages: "",
-    genre_id: "",
-    author_id: "",
+    title: book.title || "",
+    isbn: book.isbn || "",
+    publication_year: book.publication_year || "",
+    description: book.description || "",
+    pages: book.pages || "",
+    genre_id: book.genre_id || "",
+    author_id: book.author_id || "",
   });
 
   const [authors, setAuthors] = useState([]);
@@ -32,7 +32,6 @@ export default function BookCreateForm({ onSuccess, onCancel }) {
   const fetchAuthors = async () => {
     try {
       const response = await authorService.getAuthors();
-      console.log("Authors response:", response.data);
       setAuthors(response.data.data || []);
     } catch (err) {
       console.error("Failed to fetch authors:", err);
@@ -42,7 +41,6 @@ export default function BookCreateForm({ onSuccess, onCancel }) {
   const fetchGenres = async () => {
     try {
       const response = await genreService.getGenres();
-      console.log("Genres response:", response.data);
       setGenres(response.data.data || []);
     } catch (err) {
       console.error("Failed to fetch genres:", err);
@@ -99,15 +97,15 @@ export default function BookCreateForm({ onSuccess, onCancel }) {
       }
     });
 
-    console.log("Submitting book data:", submitData); // Debug log
+    console.log("Updating book data:", submitData); // Debug log
 
     try {
-      const response = await booksService.createBook(submitData);
-      console.log("Book created successfully:", response.data); // Debug log
+      const response = await booksService.updateBook(book.id, submitData);
+      console.log("Book updated successfully:", response.data); // Debug log
       onSuccess(response.data);
     } catch (err) {
-      console.error("Error creating book:", err); // Debug log
-      setError(err.response?.data?.message || "Failed to create book");
+      console.error("Error updating book:", err); // Debug log
+      setError(err.response?.data?.message || "Failed to update book");
     } finally {
       setLoading(false);
     }
@@ -128,8 +126,8 @@ export default function BookCreateForm({ onSuccess, onCancel }) {
   return (
     <div className="book-create-form">
       <div className="form-header">
-        <h2>Create New Book</h2>
-        <p>Add a new book to the system library</p>
+        <h2>Edit Book</h2>
+        <p>Update book information</p>
       </div>
 
       {error && <div className="error-message">{error}</div>}
@@ -272,16 +270,8 @@ export default function BookCreateForm({ onSuccess, onCancel }) {
           >
             Cancel
           </button>
-          <button
-            type="submit"
-            className="submit-btn"
-            disabled={loading}
-            onClick={(e) => {
-              console.log("Submit button clicked");
-              console.log("Form data:", formData);
-            }}
-          >
-            {loading ? "Creating..." : "Create Book"}
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Updating..." : "Update Book"}
           </button>
         </div>
       </form>

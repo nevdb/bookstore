@@ -1,17 +1,31 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import BookCreateForm from "../components/Books/BookCreateForm";
+import EditBookForm from "../components/Books/EditBookForm";
+import DeleteBookModal from "../components/AdminPanel/DeleteBookModal";
 import BookBrowser from "../components/Books/BookBrowser";
 import { BooksProvider } from "../context/BooksContext";
 import "./AdminBooksManagement.css";
 
 export default function AdminBooksManagement() {
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [editingBook, setEditingBook] = useState(null);
+  const [deletingBook, setDeletingBook] = useState(null);
   const [refreshKey, setRefreshKey] = useState(0);
+
+  const editFormRef = useRef(null);
+
+  useEffect(() => {
+    if (editingBook && editFormRef.current) {
+      editFormRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }, [editingBook]);
 
   const handleCreateSuccess = (newBook) => {
     setShowCreateForm(false);
-    setRefreshKey(prev => prev + 1); // Trigger refresh of book list
-    alert(`Book "${newBook.title}" created successfully!`);
+    setRefreshKey(prev => prev + 1);
   };
 
   const handleCreateCancel = () => {
@@ -19,15 +33,29 @@ export default function AdminBooksManagement() {
   };
 
   const handleEditBook = (book) => {
-    // TODO: Implement edit functionality
-    alert(`Edit functionality for "${book.title}" will be implemented next`);
+    setEditingBook(book);
+  };
+
+  const handleEditSuccess = (updatedBook) => {
+    setEditingBook(null);
+    setRefreshKey(prev => prev + 1);
+  };
+
+  const handleEditCancel = () => {
+    setEditingBook(null);
   };
 
   const handleDeleteBook = (book) => {
-    if (window.confirm(`Are you sure you want to delete "${book.title}"? This action cannot be undone.`)) {
-      // TODO: Implement delete functionality
-      alert(`Delete functionality for "${book.title}" will be implemented next`);
-    }
+    setDeletingBook(book);
+  };
+
+  const handleDeleteSuccess = (bookId) => {
+    setDeletingBook(null);
+    setRefreshKey(prev => prev + 1);
+  };
+
+  const handleDeleteCancel = () => {
+    setDeletingBook(null);
   };
 
   return (
@@ -47,6 +75,24 @@ export default function AdminBooksManagement() {
         <BookCreateForm
           onSuccess={handleCreateSuccess}
           onCancel={handleCreateCancel}
+        />
+      )}
+
+      {editingBook && (
+        <div ref={editFormRef}>
+          <EditBookForm
+            book={editingBook}
+            onSuccess={handleEditSuccess}
+            onCancel={handleEditCancel}
+          />
+        </div>
+      )}
+
+      {deletingBook && (
+        <DeleteBookModal
+          book={deletingBook}
+          onClose={handleDeleteCancel}
+          onSuccess={handleDeleteSuccess}
         />
       )}
 
