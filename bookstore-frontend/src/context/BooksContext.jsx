@@ -17,13 +17,26 @@ export const BooksProvider = ({ children }) => {
     setError(null);
     try {
       const response = await booksService.getBooks(page, perPage);
-      setBooks(response.data.data || response.data);
-      setPagination(response.data.meta || {});
+      console.log("API Response:", response.data); // Debug
+      setBooks(response.data.data || []);
+      
+      // Extract pagination data from response (Laravel paginate() structure)
+      const paginationData = {
+        total: response.data.total || 0,
+        per_page: response.data.per_page || 12,
+        current_page: response.data.current_page || 1,
+        last_page: response.data.last_page || 1,
+      };
+      console.log("Pagination Data:", paginationData); // Debug
+      setPagination(paginationData);
+      
       setSearchQuery("");
       setFilters({});
     } catch (err) {
+      console.error("Error fetching books:", err); // Debug
       setError(err.response?.data?.message || "Failed to fetch books");
       setBooks([]);
+      setPagination({});
     } finally {
       setLoading(false);
     }
@@ -41,13 +54,25 @@ export const BooksProvider = ({ children }) => {
       setError(null);
       try {
         const response = await booksService.searchBooks(query);
-        setBooks(response.data.data || response.data);
-        setPagination(response.data.meta || {});
+        console.log("Search Response:", response.data); // Debug
+        setBooks(response.data.data || []);
+        
+        // Extract pagination data from response
+        const paginationData = {
+          total: response.data.total || 0,
+          per_page: response.data.per_page || 12,
+          current_page: response.data.current_page || 1,
+          last_page: response.data.last_page || 1,
+        };
+        setPagination(paginationData);
+        
         setSearchQuery(query);
         setFilters({});
       } catch (err) {
+        console.error("Error searching books:", err); // Debug
         setError(err.response?.data?.message || "Search failed");
         setBooks([]);
+        setPagination({});
       } finally {
         setLoading(false);
       }
@@ -64,13 +89,25 @@ export const BooksProvider = ({ children }) => {
         ...newFilters,
         page,
       });
-      setBooks(response.data.data || response.data);
-      setPagination(response.data.meta || {});
+      console.log("Filter Response:", response.data); // Debug
+      setBooks(response.data.data || []);
+      
+      // Extract pagination data from response
+      const paginationData = {
+        total: response.data.total || 0,
+        per_page: response.data.per_page || 12,
+        current_page: response.data.current_page || 1,
+        last_page: response.data.last_page || 1,
+      };
+      setPagination(paginationData);
+      
       setFilters(newFilters);
       setSearchQuery("");
     } catch (err) {
+      console.error("Error filtering books:", err); // Debug
       setError(err.response?.data?.message || "Filter failed");
       setBooks([]);
+      setPagination({});
     } finally {
       setLoading(false);
     }

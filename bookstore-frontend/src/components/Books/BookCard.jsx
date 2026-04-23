@@ -2,11 +2,25 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./BookCard.css";
 
-const BookCard = ({ book }) => {
+const BookCard = ({ book, isAdmin = false, onEdit, onDelete }) => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    // Don't navigate if clicking on admin buttons
+    if (e.target.closest('.admin-actions')) {
+      return;
+    }
     navigate(`/books/${book.id}`);
+  };
+
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    onEdit(book);
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    onDelete(book);
   };
 
   return (
@@ -30,6 +44,16 @@ const BookCard = ({ book }) => {
         {book.genre && <p className="book-card-genre">{book.genre.name}</p>}
         {book.publication_year && (
           <p className="book-card-year">{book.publication_year}</p>
+        )}
+        {isAdmin && (
+          <div className="admin-actions">
+            <button className="edit-btn" onClick={handleEdit}>
+              Edit
+            </button>
+            <button className="delete-btn" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
         )}
       </div>
     </div>

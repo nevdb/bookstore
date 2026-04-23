@@ -11,6 +11,7 @@ import BookDetailPage from "./pages/BookDetailPage";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import AdminRoute from "./components/Auth/AdminRoute";
 import MyCollection from "./pages/MyCollection";
+import AdminBooksManagement from "./pages/AdminBooksManagement";
 
 export default function App() {
   const { user } = useAuth();
@@ -53,7 +54,7 @@ export default function App() {
             path="/admin/books"
             element={
               <AdminRoute>
-                <div>Admin Books Management - Coming Soon</div>
+                <AdminBooksManagement />
               </AdminRoute>
             }
           />

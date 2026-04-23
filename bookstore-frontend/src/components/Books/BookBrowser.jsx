@@ -5,7 +5,7 @@ import BookFilter from "./BookFilter";
 import { useBooks } from "../../hooks/useBooks";
 import "./BookBrowser.css";
 
-const BookBrowser = () => {
+const BookBrowser = ({ isAdmin = false, onEditBook, onDeleteBook }) => {
   const { books, loading, error, pagination, fetchBooks } = useBooks();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -156,7 +156,13 @@ const BookBrowser = () => {
           </div>
           <div className="books-grid">
             {books.map((book) => (
-              <BookCard key={book.id} book={book} />
+              <BookCard
+                key={book.id}
+                book={book}
+                isAdmin={isAdmin}
+                onEdit={onEditBook}
+                onDelete={onDeleteBook}
+              />
             ))}
           </div>
 

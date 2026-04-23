@@ -13,7 +13,7 @@ This is EXTREMELY IMPORTANT:
 - You have full agency here. Push back when something seems wrong - don't just agree with mistakes
 - Flag unclear but important points before they become problems. Be proactive in letting me know so we can talk about it and avoid the problem
 - Call out potential misses
-- If you don’t know something, say “I don’t know” instead of making things up
+- If you don't know something, say “I don't know” instead of making things up
 - Ask questions if something is not clear and you need to make a choice. Don't choose randomly if it's important for what we're doing
 - When you show me a potential error or miss, start your response with❗️emoji
 
@@ -549,16 +549,16 @@ src/
 
 ### Phase 5: Admin Book Management (Create, Update, Delete)
 
-- [ ] Backend: Create book API (admin only)
-- [ ] Backend: Update book API (admin only)
-- [ ] Backend: Delete book API (admin only)
-- [ ] Backend: Admin-only middleware for book operations
-- [ ] Frontend: Admin book management page
-- [ ] Frontend: Create book form (with author/genre selection or creation)
-- [ ] Frontend: Edit book form
-- [ ] Frontend: Delete book confirmation
-- [ ] Frontend: Admin-only route protection
-- [ ] Testing: Admin-only permission checks
+- [x] Backend: Create book API (admin only)
+- [x] Backend: Update book API (admin only)
+- [x] Backend: Delete book API (admin only)
+- [x] Backend: Admin-only middleware for book operations
+- [x] Frontend: Admin book management page
+- [x] Frontend: Create book form (with author/genre selection or creation)
+- [x] Frontend: Edit book form
+- [x] Frontend: Delete book confirmation
+- [x] Frontend: Admin-only route protection
+- [x] Testing: Admin-only permission checks
 
 ### Phase 6: Admin Author Management (Create, Update, Delete)
 
@@ -613,7 +613,7 @@ src/
 
 **Unit Tests (Frontend - Vitest)**
 
-- [ ] Setup Vitest with Vite
+- [x] Setup Vitest with Vite
 - [ ] Write unit tests for React components (Components, Pages, Hooks)
 - [ ] Test utilities (validators, formatters, roleCheck)
 - [ ] Test context providers (AuthContext, BooksContext)
