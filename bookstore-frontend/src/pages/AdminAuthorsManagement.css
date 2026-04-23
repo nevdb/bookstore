@@ -1,0 +1,170 @@
+.admin-authors-management {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.management-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.management-header h1 {
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 28px;
+}
+
+.management-header p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.create-author-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.create-author-btn:hover {
+  background: #218838;
+}
+
+.create-author-btn:active {
+  transform: translateY(1px);
+}
+
+/* Authors List Section */
+.authors-list-section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.authors-loading,
+.authors-empty {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 16px;
+}
+
+.authors-error {
+  text-align: center;
+  padding: 20px;
+  color: #c33;
+  background: #fee;
+  border: 1px solid #faa;
+  border-radius: 6px;
+}
+
+/* Authors Table */
+.authors-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.authors-table thead {
+  background-color: #f8f9fa;
+}
+
+.authors-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #2c3e50;
+  border-bottom: 2px solid #e0e0e0;
+  white-space: nowrap;
+}
+
+.authors-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #34495e;
+}
+
+.authors-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Action Buttons */
+.authors-actions {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.edit-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-btn:hover {
+  background: #0056b3;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+  background: #a71d2a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-authors-management {
+    padding: 10px;
+  }
+
+  .management-header {
+    padding: 15px;
+  }
+
+  .management-header h1 {
+    font-size: 24px;
+  }
+
+  .create-author-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .authors-table th,
+  .authors-table td {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .authors-actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

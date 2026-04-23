@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import AdminRoute from "./components/Auth/AdminRoute";
 import MyCollection from "./pages/MyCollection";
 import AdminBooksManagement from "./pages/AdminBooksManagement";
+import AdminAuthorsManagement from "./pages/AdminAuthorsManagement";
 
 export default function App() {
   const { user } = useAuth();
@@ -62,7 +63,7 @@ export default function App() {
             path="/admin/authors"
             element={
               <AdminRoute>
-                <div>Admin Authors Management - Coming Soon</div>
+                <AdminAuthorsManagement />
               </AdminRoute>
             }
           />

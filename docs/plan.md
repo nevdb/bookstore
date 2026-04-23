@@ -562,13 +562,13 @@ src/
 
 ### Phase 6: Admin Author Management (Create, Update, Delete)
 
-- [ ] Backend: Create author API (admin only)
-- [ ] Backend: Update author API (admin only)
-- [ ] Backend: Delete author API (admin only)
-- [ ] Frontend: Admin author management page
-- [ ] Frontend: Create author form
-- [ ] Frontend: Edit author form
-- [ ] Frontend: Delete author confirmation
+- [x] Backend: Create author API (admin only)
+- [x] Backend: Update author API (admin only)
+- [x] Backend: Delete author API (admin only)
+- [x] Frontend: Admin author management page
+- [x] Frontend: Create author form
+- [x] Frontend: Edit author form
+- [x] Frontend: Delete author confirmation
 - [ ] Testing: Author CRUD permissions
 
 ### Phase 7: Admin Genre Management (Create, Update, Delete)

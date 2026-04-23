@@ -55,6 +55,13 @@ export default function Header() {
                     >
                       Books
                     </Link>
+                    <Link
+                      to="/admin/authors"
+                      className="nav-link admin-link"
+                      title="Manage Authors"
+                    >
+                      Authors
+                    </Link>
                   </>
                 )}
 
