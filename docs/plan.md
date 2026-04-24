@@ -573,11 +573,11 @@ src/
 
 ### Phase 7: Admin Genre Management (Create, Update, Delete)
 
-- [ ] Backend: Create genre API (admin only)
-- [ ] Backend: Update genre API (admin only)
-- [ ] Backend: Delete genre API (admin only)
-- [ ] Frontend: Admin genre management page
-- [ ] Frontend: Create/edit/delete genre operations
+- [x] Backend: Create genre API (admin only)
+- [x] Backend: Update genre API (admin only)
+- [x] Backend: Delete genre API (admin only)
+- [x] Frontend: Admin genre management page
+- [x] Frontend: Create/edit/delete genre operations
 - [ ] Testing: Genre management permissions
 
 ### Phase 8: Search & Filter (System-wide & Collection)
