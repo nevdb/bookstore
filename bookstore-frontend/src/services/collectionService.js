@@ -3,9 +3,14 @@ import axios from 'axios';
 const API_URL = 'http://localhost:8000/api/user/collection';
 
 const collectionService = {
-    // Get user's collection
-    getCollection: (page = 1, perPage = 12) => {
-        return axios.get(`${API_URL}?page=${page}&per_page=${perPage}`, {
+    // Get user's collection (supports search, filter, and sort params)
+    getCollection: (page = 1, perPage = 12, params = {}) => {
+        const query = new URLSearchParams({
+            page,
+            per_page: perPage,
+            ...params,
+        }).toString();
+        return axios.get(`${API_URL}?${query}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`
             }

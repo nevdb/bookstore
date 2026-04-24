@@ -30,6 +30,21 @@
   border-radius: 8px;
 }
 
+.sort-control {
+  display: flex;
+  align-items: center;
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  min-width: 180px;
+}
+
 .books-stats {
   margin-bottom: 20px;
   color: #666;
