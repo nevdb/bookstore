@@ -13,6 +13,7 @@ import AdminRoute from "./components/Auth/AdminRoute";
 import MyCollection from "./pages/MyCollection";
 import AdminBooksManagement from "./pages/AdminBooksManagement";
 import AdminAuthorsManagement from "./pages/AdminAuthorsManagement";
+import AdminGenresManagement from "./pages/AdminGenresManagement";
 
 export default function App() {
   const { user } = useAuth();
@@ -71,7 +72,7 @@ export default function App() {
             path="/admin/genres"
             element={
               <AdminRoute>
-                <div>Admin Genres Management - Coming Soon</div>
+                <AdminGenresManagement />
               </AdminRoute>
             }
           />
