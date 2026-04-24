@@ -10,6 +10,7 @@ export const BooksProvider = ({ children }) => {
   const [pagination, setPagination] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({});
+  const [sort, setSort] = useState({ sort_by: '', sort_dir: 'asc' });
 
   // Fetch all books
   const fetchBooks = useCallback(async (page = 1, perPage = 12) => {
@@ -32,9 +33,35 @@ export const BooksProvider = ({ children }) => {
       
       setSearchQuery("");
       setFilters({});
+      setSort({ sort_by: '', sort_dir: 'asc' });
     } catch (err) {
       console.error("Error fetching books:", err); // Debug
       setError(err.response?.data?.message || "Failed to fetch books");
+      setBooks([]);
+      setPagination({});
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Sort books (re-fetches with sort params, clears search/filters)
+  const sortBooks = useCallback(async (sortBy, sortDir = 'asc', page = 1) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await booksService.getBooks(page, 12, sortBy, sortDir);
+      setBooks(response.data.data || []);
+      setPagination({
+        total: response.data.total || 0,
+        per_page: response.data.per_page || 12,
+        current_page: response.data.current_page || 1,
+        last_page: response.data.last_page || 1,
+      });
+      setSort({ sort_by: sortBy, sort_dir: sortDir });
+      setSearchQuery("");
+      setFilters({});
+    } catch (err) {
+      setError(err.response?.data?.message || "Sort failed");
       setBooks([]);
       setPagination({});
     } finally {
@@ -120,9 +147,11 @@ export const BooksProvider = ({ children }) => {
     pagination,
     searchQuery,
     filters,
+    sort,
     fetchBooks,
     searchBooks,
     filterBooks,
+    sortBooks,
   };
 
   return (

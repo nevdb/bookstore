@@ -12,9 +12,24 @@ class BookController extends Controller
 {
     public function index(Request $request)
     {
-        $books = Book::with(['author', 'genre'])->paginate(12);
+        $query = Book::with(['author', 'genre']);
 
-        return response()->json($books);
+        $sortBy  = $request->input('sort_by', '');
+        $sortDir = $request->input('sort_dir', 'asc') === 'desc' ? 'desc' : 'asc';
+
+        switch ($sortBy) {
+            case 'title':
+                $query->orderBy('title', $sortDir);
+                break;
+            case 'year':
+                $query->orderBy('publication_year', $sortDir);
+                break;
+            default:
+                $query->orderBy('id', 'asc');
+                break;
+        }
+
+        return response()->json($query->paginate(12));
     }
 
     public function show(Book $book)

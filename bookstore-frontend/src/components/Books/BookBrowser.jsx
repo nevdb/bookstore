@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BookCard from "./BookCard";
 import BookSearch from "./BookSearch";
 import BookFilter from "./BookFilter";
@@ -6,13 +6,35 @@ import { useBooks } from "../../hooks/useBooks";
 import "./BookBrowser.css";
 
 const BookBrowser = ({ isAdmin = false, onEditBook, onDeleteBook }) => {
-  const { books, loading, error, pagination, fetchBooks } = useBooks();
+  const { books, loading, error, pagination, fetchBooks, sortBooks, sort } =
+    useBooks();
   const [currentPage, setCurrentPage] = useState(1);
+  // Prevents the page-change useEffect from double-firing when sort changes
+  const skipNextEffect = useRef(false);
 
   // Load books on mount and when page changes
   useEffect(() => {
-    fetchBooks(currentPage);
-  }, [currentPage, fetchBooks]);
+    if (skipNextEffect.current) {
+      skipNextEffect.current = false;
+      return;
+    }
+    if (sort.sort_by) {
+      sortBooks(sort.sort_by, sort.sort_dir, currentPage);
+    } else {
+      fetchBooks(currentPage);
+    }
+  }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleSortChange = (e) => {
+    const [sortBy, sortDir] = e.target.value.split(":");
+    skipNextEffect.current = true; // suppress the useEffect triggered by setCurrentPage
+    setCurrentPage(1);
+    if (sortBy === "") {
+      fetchBooks(1);
+    } else {
+      sortBooks(sortBy, sortDir, 1);
+    }
+  };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -136,6 +158,20 @@ const BookBrowser = ({ isAdmin = false, onEditBook, onDeleteBook }) => {
       <div className="browser-controls">
         <BookSearch />
         <BookFilter />
+        <div className="sort-control">
+          <select
+            value={sort.sort_by ? `${sort.sort_by}:${sort.sort_dir}` : ""}
+            onChange={handleSortChange}
+            className="sort-select"
+            aria-label="Sort books"
+          >
+            <option value="">Sort: Default</option>
+            <option value="title:asc">Title A → Z</option>
+            <option value="title:desc">Title Z → A</option>
+            <option value="year:asc">Year: Oldest first</option>
+            <option value="year:desc">Year: Newest first</option>
+          </select>
+        </div>
       </div>
 
       {loading && books.length === 0 ? (

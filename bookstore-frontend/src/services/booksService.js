@@ -1,9 +1,15 @@
 import API from './api';
 
 export const booksService = {
-    // Get all books
-    getBooks: (page = 1, perPage = 15) =>
-        API.get(`/api/books?page=${page}&per_page=${perPage}`),
+    // Get all books (supports sort_by and sort_dir params)
+    getBooks: (page = 1, perPage = 15, sortBy = '', sortDir = 'asc') => {
+        const params = new URLSearchParams({ page, per_page: perPage });
+        if (sortBy) {
+            params.set('sort_by', sortBy);
+            params.set('sort_dir', sortDir);
+        }
+        return API.get(`/api/books?${params.toString()}`);
+    },
 
     // Get single book
     getBook: (bookId) =>
