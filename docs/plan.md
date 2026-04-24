@@ -582,12 +582,12 @@ src/
 
 ### Phase 8: Search & Filter (System-wide & Collection)
 
-- [ ] Backend: Search system books (title, author, genre)
-- [ ] Backend: Filter system books
-- [ ] Backend: Search/filter user collection
-- [ ] Frontend: Search component for system books
-- [ ] Frontend: Search/filter for personal collection
-- [ ] Frontend: Sorting options
+- [x] Backend: Search system books (title, author, genre)
+- [x] Backend: Filter system books
+- [x] Backend: Search/filter user collection
+- [x] Frontend: Search component for system books
+- [x] Frontend: Search/filter for personal collection
+- [x] Frontend: Sorting options
 - [ ] Testing: Search accuracy and edge cases
 
 ### Phase 9: Dashboards (User & Admin)
