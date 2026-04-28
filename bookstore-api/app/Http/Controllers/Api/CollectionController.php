@@ -120,4 +120,25 @@ class CollectionController extends Controller
 
         return response()->json(['message' => 'Removed from collection']);
     }
+
+    public function statistics(Request $request)
+    {
+        $userBooks = $request->user()->userBooks();
+
+        $totalBooks    = (clone $userBooks)->count();
+        $reading       = (clone $userBooks)->where('status', 'reading')->count();
+        $completed     = (clone $userBooks)->where('status', 'completed')->count();
+        $toRead        = (clone $userBooks)->where('status', 'to-read')->count();
+        $averageRating = (clone $userBooks)->whereNotNull('personal_rating')->avg('personal_rating');
+
+        return response()->json([
+            'data' => [
+                'total_books'    => $totalBooks,
+                'reading'        => $reading,
+                'completed'      => $completed,
+                'to_read'        => $toRead,
+                'average_rating' => $averageRating ? round($averageRating, 1) : null,
+            ],
+        ]);
+    }
 }

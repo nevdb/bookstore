@@ -170,6 +170,57 @@
   font-weight: bold;
 }
 
+.collection-stats-banner {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.6s ease;
+}
+
+.collection-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+}
+
+.collection-stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  line-height: 1;
+}
+
+.collection-stat-number.reading {
+  color: #3498db;
+}
+
+.collection-stat-number.completed {
+  color: #27ae60;
+}
+
+.collection-stat-number.to-read {
+  color: #e67e22;
+}
+
+.collection-stat-number.rating {
+  color: #f39c12;
+}
+
+.collection-stat-label {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
 @keyframes fadeInDown {
   from {
     opacity: 0;

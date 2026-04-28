@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Book;
+use App\Models\Author;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -171,6 +174,9 @@ class AdminController extends Controller
                 'total_users' => User::count(),
                 'total_admins' => User::where('role', 'admin')->count(),
                 'total_regular_users' => User::where('role', 'user')->count(),
+                'total_books' => Book::count(),
+                'total_authors' => Author::count(),
+                'total_genres' => Genre::count(),
             ],
         ]);
     }

@@ -592,11 +592,11 @@ src/
 
 ### Phase 9: Dashboards (User & Admin)
 
-- [ ] Backend: User statistics endpoint (collection size, genres, etc.)
-- [ ] Backend: Admin statistics endpoint (total books, authors, users, genres)
-- [ ] Frontend: User dashboard (collection stats, quick actions)
-- [ ] Frontend: Admin dashboard (system stats, recent activities)
-- [ ] Frontend: Quick navigation to management areas
+- [x] Backend: User statistics endpoint (collection size, genres, etc.)
+- [x] Backend: Admin statistics endpoint (total books, authors, users, genres)
+- [x] Frontend: User dashboard (collection stats, quick actions)
+- [x] Frontend: Admin dashboard (system stats, recent activities)
+- [x] Frontend: Quick navigation to management areas
 - [ ] Testing: Dashboard data accuracy
 
 ### Phase 10: UI Polish & Optimization

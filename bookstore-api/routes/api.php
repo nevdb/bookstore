@@ -52,6 +52,7 @@ Route::middleware('api')->group(function () {
         });
 
         Route::get('/user/collection', [CollectionController::class, 'index']);
+        Route::get('/user/statistics', [CollectionController::class, 'statistics']);
         Route::post('/user/collection', [CollectionController::class, 'store']);
         Route::put('/user/collection/{id}', [CollectionController::class, 'update']);
         Route::delete('/user/collection/{id}', [CollectionController::class, 'destroy']);
