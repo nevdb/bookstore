@@ -14,6 +14,7 @@ import MyCollection from "./pages/MyCollection";
 import AdminBooksManagement from "./pages/AdminBooksManagement";
 import AdminAuthorsManagement from "./pages/AdminAuthorsManagement";
 import AdminGenresManagement from "./pages/AdminGenresManagement";
+import AdminDashboard from "./pages/AdminDashboard";
 
 export default function App() {
   const { user } = useAuth();
@@ -40,7 +41,7 @@ export default function App() {
             path="/admin/dashboard"
             element={
               <AdminRoute>
-                <div>Admin Dashboard - Coming Soon</div>
+                <AdminDashboard />
               </AdminRoute>
             }
           />

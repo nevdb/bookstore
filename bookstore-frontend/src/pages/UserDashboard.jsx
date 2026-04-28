@@ -1,11 +1,23 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import useIsAdmin from "../hooks/useIsAdmin";
+import collectionService from "../services/collectionService";
 import "./UserDashboard.css";
 
 export default function UserDashboard() {
   const { user } = useAuth();
   const isAdmin = useIsAdmin();
+  const [stats, setStats] = useState(null);
+  const [statsLoading, setStatsLoading] = useState(true);
+
+  useEffect(() => {
+    collectionService
+      .getStatistics()
+      .then((res) => setStats(res.data))
+      .catch(() => setStats(null))
+      .finally(() => setStatsLoading(false));
+  }, []);
 
   return (
     <div className="dashboard">
@@ -22,7 +34,35 @@ export default function UserDashboard() {
           </p>
         </div>
 
-        {/* Quick Stats */}
+        {/* Collection Stats Banner */}
+        {!statsLoading && stats && (
+          <div className="collection-stats-banner">
+            <div className="collection-stat">
+              <span className="collection-stat-number">{stats.total_books}</span>
+              <span className="collection-stat-label">Books in Collection</span>
+            </div>
+            <div className="collection-stat">
+              <span className="collection-stat-number reading">{stats.reading}</span>
+              <span className="collection-stat-label">Reading</span>
+            </div>
+            <div className="collection-stat">
+              <span className="collection-stat-number completed">{stats.completed}</span>
+              <span className="collection-stat-label">Completed</span>
+            </div>
+            <div className="collection-stat">
+              <span className="collection-stat-number to-read">{stats.to_read}</span>
+              <span className="collection-stat-label">To Read</span>
+            </div>
+            <div className="collection-stat">
+              <span className="collection-stat-number rating">
+                {stats.average_rating !== null ? `${stats.average_rating} ★` : "—"}
+              </span>
+              <span className="collection-stat-label">Avg Rating</span>
+            </div>
+          </div>
+        )}
+
+        {/* Quick Actions */}
         <div className="stats-grid">
           <div className="stat-card">
             <div className="stat-icon">📚</div>

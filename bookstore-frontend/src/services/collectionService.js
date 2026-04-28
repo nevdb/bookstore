@@ -47,6 +47,15 @@ const collectionService = {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`
             }
         }).then(res => res.data);
+    },
+
+    // Get user collection statistics
+    getStatistics: () => {
+        return axios.get('http://localhost:8000/api/user/statistics', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('authToken')}`
+            }
+        }).then(res => res.data);
     }
 };
 
