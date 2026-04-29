@@ -27,11 +27,12 @@ const BookCard = ({ book, isAdmin = false, onEdit, onDelete }) => {
     <div className="book-card" onClick={handleClick}>
       <div className="book-card-image">
         {!book.cover_url ? (
-          <img src="/default-book.png" alt="Missing cover" />
+          <img src="/default-book.png" alt="Missing cover" loading="lazy" />
         ) : (
           <img
             src={book.cover_url || "/default-book.png"}
             alt={book.title}
+            loading="lazy"
             onError={(e) => (e.target.src = "/default-book.png")}
           />
         )}
@@ -47,10 +48,10 @@ const BookCard = ({ book, isAdmin = false, onEdit, onDelete }) => {
         )}
         {isAdmin && (
           <div className="admin-actions">
-            <button className="edit-btn" onClick={handleEdit}>
+            <button className="edit-btn" onClick={handleEdit} aria-label={`Edit ${book.title}`}>
               Edit
             </button>
-            <button className="delete-btn" onClick={handleDelete}>
+            <button className="delete-btn" onClick={handleDelete} aria-label={`Delete ${book.title}`}>
               Delete
             </button>
           </div>
@@ -60,4 +61,4 @@ const BookCard = ({ book, isAdmin = false, onEdit, onDelete }) => {
   );
 };
 
-export default BookCard;
+export default React.memo(BookCard);

@@ -63,7 +63,7 @@ export default function LoginPage() {
               />
             </div>
 
-            {error && <div className="error-message">{error}</div>}
+            {error && <div className="error-message" role="alert">{error}</div>}
 
             <button type="submit" disabled={loading} className="submit-btn">
               {loading ? "Signing in..." : "Sign In"}

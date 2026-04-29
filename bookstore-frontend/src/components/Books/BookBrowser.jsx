@@ -140,7 +140,7 @@ const BookBrowser = ({ isAdmin = false, onEditBook, onDeleteBook }) => {
   if (error) {
     return (
       <div className="book-browser">
-        <div className="error-message">
+        <div className="error-message" role="alert">
           <h2>Error</h2>
           <p>{error}</p>
         </div>

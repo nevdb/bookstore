@@ -53,7 +53,7 @@ export default function AdminUsersManagement() {
         </div>
       )}
 
-      {error && <div className="error-alert">{error}</div>}
+      {error && <div className="error-alert" role="alert">{error}</div>}
 
       {/* Users Table */}
       <div className="table-section">

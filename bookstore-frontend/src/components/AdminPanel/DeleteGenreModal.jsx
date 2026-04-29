@@ -27,7 +27,7 @@ export default function DeleteGenreModal({ genre, onClose, onSuccess }) {
             &times;
           </button>
         </div>
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="error-message" role="alert">{error}</div>}
         <p>
           Are you sure you want to delete <strong>{genre.name}</strong>?
         </p>

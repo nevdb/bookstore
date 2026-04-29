@@ -18,7 +18,6 @@ export const BooksProvider = ({ children }) => {
     setError(null);
     try {
       const response = await booksService.getBooks(page, perPage);
-      console.log("API Response:", response.data); // Debug
       setBooks(response.data.data || []);
       
       // Extract pagination data from response (Laravel paginate() structure)
@@ -28,14 +27,12 @@ export const BooksProvider = ({ children }) => {
         current_page: response.data.current_page || 1,
         last_page: response.data.last_page || 1,
       };
-      console.log("Pagination Data:", paginationData); // Debug
       setPagination(paginationData);
       
       setSearchQuery("");
       setFilters({});
       setSort({ sort_by: '', sort_dir: 'asc' });
     } catch (err) {
-      console.error("Error fetching books:", err); // Debug
       setError(err.response?.data?.message || "Failed to fetch books");
       setBooks([]);
       setPagination({});
@@ -81,7 +78,6 @@ export const BooksProvider = ({ children }) => {
       setError(null);
       try {
         const response = await booksService.searchBooks(query);
-        console.log("Search Response:", response.data); // Debug
         setBooks(response.data.data || []);
         
         // Extract pagination data from response
@@ -96,7 +92,6 @@ export const BooksProvider = ({ children }) => {
         setSearchQuery(query);
         setFilters({});
       } catch (err) {
-        console.error("Error searching books:", err); // Debug
         setError(err.response?.data?.message || "Search failed");
         setBooks([]);
         setPagination({});
@@ -116,7 +111,6 @@ export const BooksProvider = ({ children }) => {
         ...newFilters,
         page,
       });
-      console.log("Filter Response:", response.data); // Debug
       setBooks(response.data.data || []);
       
       // Extract pagination data from response
@@ -131,7 +125,6 @@ export const BooksProvider = ({ children }) => {
       setFilters(newFilters);
       setSearchQuery("");
     } catch (err) {
-      console.error("Error filtering books:", err); // Debug
       setError(err.response?.data?.message || "Filter failed");
       setBooks([]);
       setPagination({});

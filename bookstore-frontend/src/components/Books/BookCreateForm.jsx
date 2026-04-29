@@ -132,7 +132,7 @@ export default function BookCreateForm({ onSuccess, onCancel }) {
         <p>Add a new book to the system library</p>
       </div>
 
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="error-message" role="alert">{error}</div>}
 
       <form onSubmit={handleSubmit} className="book-form">
         <div className="form-row">

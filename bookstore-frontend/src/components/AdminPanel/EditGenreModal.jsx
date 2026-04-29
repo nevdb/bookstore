@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { genreService } from "../../services/genreService";
 
 export default function EditGenreModal({ genre, onClose, onSuccess }) {
@@ -8,6 +8,12 @@ export default function EditGenreModal({ genre, onClose, onSuccess }) {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const handleKeyDown = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,10 +35,10 @@ export default function EditGenreModal({ genre, onClose, onSuccess }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h3>Edit Genre</h3>
-          <button className="close-btn" onClick={onClose}>
+          <h3 id="modal-title">Edit Genre</h3>
+          <button className="close-btn" onClick={onClose} aria-label="Close dialog">
             &times;
           </button>
         </div>
