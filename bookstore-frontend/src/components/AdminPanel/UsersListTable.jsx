@@ -6,10 +6,12 @@ export default function UsersListTable() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pagination, setPagination] = useState({});
   const [selectedUser, setSelectedUser] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null); // { userId, type: 'demote'|'delete' }
 
   useEffect(() => {
     fetchUsers(currentPage);
@@ -31,12 +33,12 @@ export default function UsersListTable() {
 
   const handlePromoteUser = async (userId) => {
     setActionLoading(true);
+    setSuccess("");
     try {
       await adminService.promoteUserToAdmin(userId);
       setError("");
-      // Refresh users list
       fetchUsers(currentPage);
-      alert("User promoted to admin successfully!");
+      setSuccess("User promoted to admin successfully!");
     } catch (err) {
       setError(err.response?.data?.message || "Failed to promote user");
     } finally {
@@ -45,32 +47,33 @@ export default function UsersListTable() {
   };
 
   const handleDemoteUser = async (userId) => {
-    if (!window.confirm("Are you sure you want to demote this admin?")) return;
-
-    setActionLoading(true);
-    try {
-      await adminService.demoteAdminUser(userId);
-      setError("");
-      fetchUsers(currentPage);
-      alert("Admin demoted to user successfully!");
-    } catch (err) {
-      setError(err.response?.data?.message || "Failed to demote admin");
-    } finally {
-      setActionLoading(false);
-    }
+    setConfirmAction({ userId, type: "demote" });
   };
 
   const handleDeleteUser = async (userId) => {
-    if (!window.confirm("Are you sure? This action cannot be undone.")) return;
+    setConfirmAction({ userId, type: "delete" });
+  };
 
+  const handleConfirmAction = async () => {
+    if (!confirmAction) return;
+    const { userId, type } = confirmAction;
+    setConfirmAction(null);
     setActionLoading(true);
+    setSuccess("");
     try {
-      await adminService.deleteUser(userId);
-      setError("");
-      fetchUsers(currentPage);
-      alert("User deleted successfully!");
+      if (type === "demote") {
+        await adminService.demoteAdminUser(userId);
+        setError("");
+        fetchUsers(currentPage);
+        setSuccess("Admin demoted to user successfully!");
+      } else if (type === "delete") {
+        await adminService.deleteUser(userId);
+        setError("");
+        fetchUsers(currentPage);
+        setSuccess("User deleted successfully!");
+      }
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to delete user");
+      setError(err.response?.data?.message || `Failed to ${type} user`);
     } finally {
       setActionLoading(false);
     }
@@ -82,7 +85,24 @@ export default function UsersListTable() {
 
   return (
     <div className="users-table-container">
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="error-message" role="alert">{error}</div>}
+      {success && <div className="success-message" aria-live="polite">{success}</div>}
+
+      {confirmAction && (
+        <div className="confirm-action-bar" aria-live="polite">
+          <span>
+            {confirmAction.type === "delete"
+              ? "Delete this user? This action cannot be undone."
+              : "Demote this admin to regular user?"}
+          </span>
+          <button className="btn-confirm-yes" onClick={handleConfirmAction} disabled={actionLoading}>
+            Yes, {confirmAction.type === "delete" ? "delete" : "demote"}
+          </button>
+          <button className="btn-confirm-cancel" onClick={() => setConfirmAction(null)} disabled={actionLoading}>
+            Cancel
+          </button>
+        </div>
+      )}
 
       <table className="users-table">
         <thead>

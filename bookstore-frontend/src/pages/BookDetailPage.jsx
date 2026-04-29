@@ -14,6 +14,7 @@ const BookDetailPage = () => {
   const [error, setError] = useState(null);
   const [inCollection, setInCollection] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [collectionMessage, setCollectionMessage] = useState(null);
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -35,21 +36,22 @@ const BookDetailPage = () => {
 
   const handleAddToCollection = async () => {
     if (!user) {
-      alert("Please log in first");
+      navigate("/login");
       return;
     }
 
     try {
       setIsAdding(true);
+      setCollectionMessage(null);
       await collectionService.addBook(book.id);
       setInCollection(true);
-      alert("Added to your collection!");
+      setCollectionMessage({ type: "success", text: "Added to your collection!" });
     } catch (err) {
       if (err.response?.status === 409) {
         setInCollection(true);
-        alert("Book already in your collection");
+        setCollectionMessage({ type: "info", text: "Book already in your collection" });
       } else {
-        alert("Failed to add book");
+        setCollectionMessage({ type: "error", text: err.response?.data?.message || "Failed to add book" });
       }
     } finally {
       setIsAdding(false);
@@ -200,13 +202,20 @@ const BookDetailPage = () => {
             )}
 
           {user && (
-            <button
-              onClick={handleAddToCollection}
-              disabled={inCollection || isAdding}
-              className="btn-add-collection"
-            >
-              {inCollection ? "✓ In Your Collection" : "+ Add to Collection"}
-            </button>
+            <div className="add-to-collection-wrapper">
+              <button
+                onClick={handleAddToCollection}
+                disabled={inCollection || isAdding}
+                className="btn-add-collection"
+              >
+                {isAdding ? "Adding..." : inCollection ? "✓ In Your Collection" : "+ Add to Collection"}
+              </button>
+              {collectionMessage && (
+                <p className={`collection-message collection-message--${collectionMessage.type}`} aria-live="polite">
+                  {collectionMessage.text}
+                </p>
+              )}
+            </div>
           )}
 
           <div className="book-detail-actions">

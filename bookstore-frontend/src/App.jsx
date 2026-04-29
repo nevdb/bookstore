@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 import Header from "./components/Navigation/Header";
@@ -11,10 +12,12 @@ import BookDetailPage from "./pages/BookDetailPage";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import AdminRoute from "./components/Auth/AdminRoute";
 import MyCollection from "./pages/MyCollection";
-import AdminBooksManagement from "./pages/AdminBooksManagement";
-import AdminAuthorsManagement from "./pages/AdminAuthorsManagement";
-import AdminGenresManagement from "./pages/AdminGenresManagement";
-import AdminDashboard from "./pages/AdminDashboard";
+
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const AdminBooksManagement = lazy(() => import("./pages/AdminBooksManagement"));
+const AdminAuthorsManagement = lazy(() => import("./pages/AdminAuthorsManagement"));
+const AdminGenresManagement = lazy(() => import("./pages/AdminGenresManagement"));
+const AdminUsersManagement_Lazy = lazy(() => import("./pages/AdminUsersManagement"));
 
 export default function App() {
   const { user } = useAuth();
@@ -22,6 +25,7 @@ export default function App() {
     <div className="app">
       <Header />
       <main className="app-main">
+        <Suspense fallback={<div className="spinner">Loading...</div>}>
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<HomePage />} />
@@ -36,7 +40,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          {/* Admin-Only Routes */}
+          {/* Admin-Only Routes (lazy-loaded) */}
           <Route
             path="/admin/dashboard"
             element={
@@ -100,6 +104,7 @@ export default function App() {
           {/* Catch-all - 404 */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </Suspense>
       </main>
     </div>
   );

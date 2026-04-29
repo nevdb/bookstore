@@ -130,7 +130,7 @@ export default function EditBookForm({ book, onSuccess, onCancel }) {
         <p>Update book information</p>
       </div>
 
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="error-message" role="alert">{error}</div>}
 
       <form onSubmit={handleSubmit} className="book-form">
         <div className="form-row">

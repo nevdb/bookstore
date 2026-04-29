@@ -102,7 +102,7 @@ export default function AdminGenresManagement() {
         {loading ? (
           <p>Loading genres...</p>
         ) : error ? (
-          <p className="error-message">{error}</p>
+          <p className="error-message" role="alert">{error}</p>
         ) : (
           <table className="genres-table">
             <thead>

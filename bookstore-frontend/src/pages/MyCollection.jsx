@@ -11,6 +11,8 @@ export default function MyCollection() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagination, setPagination] = useState(null);
   const [error, setError] = useState(null);
+  const [actionError, setActionError] = useState(null);
+  const [confirmRemoveId, setConfirmRemoveId] = useState(null);
 
   useEffect(() => {
     fetchCollection(currentPage);
@@ -36,26 +38,32 @@ export default function MyCollection() {
 
   const handleUpdateBook = async (userBookId, updatedData) => {
     try {
+      setActionError(null);
       await collectionService.updateBook(userBookId, updatedData);
       fetchCollection(currentPage);
     } catch (err) {
-      alert("Failed to update book");
+      setActionError(err.response?.data?.message || "Failed to update book");
     }
   };
 
-  const handleRemoveBook = async (userBookId) => {
-    if (window.confirm("Remove this book from collection?")) {
-      try {
-        await collectionService.removeBook(userBookId);
-        fetchCollection(currentPage);
-      } catch (err) {
-        alert("Failed to remove book");
-      }
+  const handleRemoveBook = (userBookId) => {
+    setConfirmRemoveId(userBookId);
+  };
+
+  const handleConfirmRemove = async () => {
+    try {
+      setActionError(null);
+      await collectionService.removeBook(confirmRemoveId);
+      setConfirmRemoveId(null);
+      fetchCollection(currentPage);
+    } catch (err) {
+      setConfirmRemoveId(null);
+      setActionError(err.response?.data?.message || "Failed to remove book");
     }
   };
 
   if (loading) return <div className="loading">Loading...</div>;
-  if (error) return <div className="error">{error}</div>;
+  if (error) return <div className="error" role="alert">{error}</div>;
 
   return (
     <div className="my-collection">
@@ -63,6 +71,18 @@ export default function MyCollection() {
       <p className="collection-stats">
         {pagination?.total || 0} books in collection
       </p>
+
+      {actionError && (
+        <div className="action-error" role="alert">{actionError}</div>
+      )}
+
+      {confirmRemoveId && (
+        <div className="confirm-remove-bar" aria-live="polite">
+          <span>Remove this book from your collection?</span>
+          <button className="btn-confirm-yes" onClick={handleConfirmRemove}>Yes, remove</button>
+          <button className="btn-confirm-cancel" onClick={() => setConfirmRemoveId(null)}>Cancel</button>
+        </div>
+      )}
 
       {collection.length === 0 ? (
         <p className="empty-message">

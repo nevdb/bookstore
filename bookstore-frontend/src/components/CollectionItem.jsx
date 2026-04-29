@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import "./CollectionItem.css";
 
-export default function CollectionItem({ userBook, onUpdate, onRemove }) {
+function CollectionItem({ userBook, onUpdate, onRemove }) {
   const [isEditing, setIsEditing] = useState(false);
   const [rating, setRating] = useState(userBook.personal_rating || 0);
   const [status, setStatus] = useState(userBook.status);
@@ -106,3 +106,5 @@ export default function CollectionItem({ userBook, onUpdate, onRemove }) {
     </div>
   );
 }
+
+export default memo(CollectionItem);

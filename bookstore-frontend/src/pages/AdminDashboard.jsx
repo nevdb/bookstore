@@ -26,7 +26,7 @@ export default function AdminDashboard() {
 
       {/* Statistics */}
       {loading && <p className="loading-text">Loading statistics...</p>}
-      {error && <div className="error-alert">{error}</div>}
+      {error && <div className="error-alert" role="alert">{error}</div>}
 
       {!loading && stats && (
         <>
