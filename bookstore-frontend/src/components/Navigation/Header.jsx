@@ -8,8 +8,8 @@ export default function Header() {
   const isAdmin = useIsAdmin();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/");
   };
 

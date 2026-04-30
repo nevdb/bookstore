@@ -47,9 +47,19 @@ export function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    await API.post("/api/auth/logout");
-    localStorage.removeItem("authToken");
-    setUser(null);
+    try {
+      await API.post("/api/auth/logout");
+    } catch (error) {
+      // Server-side token revocation failed (e.g. already expired or network error).
+      // We still complete local logout — the user must always be able to sign out.
+      console.warn(
+        "Logout API call failed (local session cleared anyway):",
+        error,
+      );
+    } finally {
+      localStorage.removeItem("authToken");
+      setUser(null);
+    }
   };
 
   return (

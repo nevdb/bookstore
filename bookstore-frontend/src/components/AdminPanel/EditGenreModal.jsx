@@ -42,6 +42,11 @@ export default function EditGenreModal({ genre, onClose, onSuccess }) {
             &times;
           </button>
         </div>
+        {error && (
+          <div className="error-message" role="alert">
+            {error}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="modal-form">
           <div className="form-group">
             <label htmlFor="name">Name</label>
