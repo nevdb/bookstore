@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthorController;
 use App\Http\Controllers\Api\GenreController;
 use App\Http\Controllers\Api\CollectionController;
 use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\RatingController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('api')->group(function () {
@@ -16,6 +17,7 @@ Route::middleware('api')->group(function () {
     Route::get('/books/search', [BookController::class, 'search']);
     Route::get('/books/filter', [BookController::class, 'filter']);
     Route::get('/books/{book}', [BookController::class, 'show']);
+    Route::get('/books/{book}/ratings', [RatingController::class, 'show']);
     Route::get('/authors', [AuthorController::class, 'index']);
     Route::get('/authors/{author}', [AuthorController::class, 'show']);
     Route::get('/genres', [GenreController::class, 'index']);
@@ -56,5 +58,7 @@ Route::middleware('api')->group(function () {
         Route::post('/user/collection', [CollectionController::class, 'store']);
         Route::put('/user/collection/{id}', [CollectionController::class, 'update']);
         Route::delete('/user/collection/{id}', [CollectionController::class, 'destroy']);
+
+        Route::post('/books/{book}/ratings', [RatingController::class, 'store']);
     });
 });

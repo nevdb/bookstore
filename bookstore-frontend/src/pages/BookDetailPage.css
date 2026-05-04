@@ -248,6 +248,63 @@
   background: #0056b3;
 }
 
+/* Star rating section */
+.book-detail-rating-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.book-rating-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.book-rating-score {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.book-rating-count {
+  font-size: 14px;
+  color: #888;
+}
+
+.book-user-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating-submitting {
+  font-size: 14px;
+  color: #888;
+  font-style: italic;
+}
+
+.book-rating-login-prompt {
+  font-size: 14px;
+  color: #555;
+  margin-top: 8px;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #007bff;
+  cursor: pointer;
+  font-size: inherit;
+  text-decoration: underline;
+}
+
+.link-button:hover {
+  color: #0056b3;
+}
+
 @media (max-width: 768px) {
   .book-detail-container {
     grid-template-columns: 1fr;
