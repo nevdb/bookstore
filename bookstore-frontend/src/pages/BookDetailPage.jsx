@@ -4,6 +4,8 @@ import { useAuth } from "../context/AuthContext";
 import { booksService } from "../services/booksService";
 import "./BookDetailPage.css";
 import collectionService from "../services/collectionService";
+import ratingService from "../services/ratingService";
+import StarRating from "../components/StarRating/StarRating";
 
 const BookDetailPage = () => {
   const { id } = useParams();
@@ -15,6 +17,11 @@ const BookDetailPage = () => {
   const [inCollection, setInCollection] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [collectionMessage, setCollectionMessage] = useState(null);
+
+  // Rating state
+  const [ratingsData, setRatingsData] = useState({ average_rating: null, ratings_count: 0, user_rating: null });
+  const [isSubmittingRating, setIsSubmittingRating] = useState(false);
+  const [ratingMessage, setRatingMessage] = useState(null);
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -33,6 +40,36 @@ const BookDetailPage = () => {
 
     fetchBook();
   }, [id]);
+
+  useEffect(() => {
+    const fetchRatings = async () => {
+      try {
+        const response = await ratingService.getBookRatings(id);
+        setRatingsData(response.data);
+      } catch {
+        // ratings are non-critical; silently ignore errors
+      }
+    };
+    fetchRatings();
+  }, [id, user]);
+
+  const handleRate = async (star) => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    try {
+      setIsSubmittingRating(true);
+      setRatingMessage(null);
+      const response = await ratingService.rateBook(id, star);
+      setRatingsData(response.data);
+      setRatingMessage({ type: "success", text: "Your rating has been saved!" });
+    } catch {
+      setRatingMessage({ type: "error", text: "Failed to submit rating. Please try again." });
+    } finally {
+      setIsSubmittingRating(false);
+    }
+  };
 
   const handleAddToCollection = async () => {
     if (!user) {
@@ -166,6 +203,51 @@ const BookDetailPage = () => {
               <p className="book-detail-value">{book.description}</p>
             </div>
           )}
+
+          <div className="book-detail-rating-section">
+            <div className="book-detail-field">
+              <label>Community Rating</label>
+              <div className="book-rating-display">
+                <StarRating value={ratingsData.average_rating ? Math.round(ratingsData.average_rating) : 0} readOnly />
+                <span className="book-rating-score">
+                  {ratingsData.average_rating !== null
+                    ? `${ratingsData.average_rating} / 5`
+                    : "No ratings yet"}
+                </span>
+                {ratingsData.ratings_count > 0 && (
+                  <span className="book-rating-count">
+                    ({ratingsData.ratings_count} {ratingsData.ratings_count === 1 ? "rating" : "ratings"})
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {user && (
+              <div className="book-detail-field">
+                <label>{ratingsData.user_rating ? "Your Rating" : "Rate This Book"}</label>
+                <div className="book-user-rating">
+                  <StarRating
+                    value={ratingsData.user_rating || 0}
+                    onChange={handleRate}
+                    size="lg"
+                  />
+                  {isSubmittingRating && <span className="rating-submitting">Saving…</span>}
+                </div>
+                {ratingMessage && (
+                  <p className={`collection-message collection-message--${ratingMessage.type}`} aria-live="polite">
+                    {ratingMessage.text}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {!user && (
+              <p className="book-rating-login-prompt">
+                <button className="link-button" onClick={() => navigate("/login")}>Log in</button>
+                {" "}to rate this book.
+              </p>
+            )}
+          </div>
 
           {book.author &&
             (book.author.biography ||

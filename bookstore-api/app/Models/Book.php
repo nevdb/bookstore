@@ -42,4 +42,9 @@ class Book extends Model
             ->withPivot(['personal_rating', 'status', 'notes'])
             ->withTimestamps();
     }
+
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(BookRating::class);
+    }
 }
