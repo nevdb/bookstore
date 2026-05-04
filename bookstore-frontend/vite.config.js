@@ -14,7 +14,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './src/test-setup.js',
-    exclude: ['**/node_modules/**', '**/cypress/**'],
+    exclude: ['**/node_modules/**', '**/cypress/**', , '**/playwright/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],

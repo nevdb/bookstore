@@ -614,11 +614,11 @@ src/
 **Unit Tests (Frontend - Vitest)**
 
 - [x] Setup Vitest with Vite
-- [ ] Write unit tests for React components (Components, Pages, Hooks)
+- [x] Write unit tests for React components (Components, Pages, Hooks)
 - [ ] Test utilities (validators, formatters, roleCheck)
-- [ ] Test context providers (AuthContext, BooksContext)
-- [ ] Test custom hooks (useAuth, useIsAdmin, useSystemBooks, useUserCollection)
-- [ ] Aim for 70%+ code coverage
+- [x] Test context providers (AuthContext, BooksContext)
+- [x] Test custom hooks (useAuth, useIsAdmin, useSystemBooks, useUserCollection)
+- [x] Aim for 70%+ code coverage
 
 **End-to-End Tests (Playwright)**
 
