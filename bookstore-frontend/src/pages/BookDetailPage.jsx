@@ -45,13 +45,22 @@ const BookDetailPage = () => {
       setCollectionMessage(null);
       await collectionService.addBook(book.id);
       setInCollection(true);
-      setCollectionMessage({ type: "success", text: "Added to your collection!" });
+      setCollectionMessage({
+        type: "success",
+        text: "Added to your collection!",
+      });
     } catch (err) {
       if (err.response?.status === 409) {
         setInCollection(true);
-        setCollectionMessage({ type: "info", text: "Book already in your collection" });
+        setCollectionMessage({
+          type: "info",
+          text: "Book already in your collection",
+        });
       } else {
-        setCollectionMessage({ type: "error", text: err.response?.data?.message || "Failed to add book" });
+        setCollectionMessage({
+          type: "error",
+          text: err.response?.data?.message || "Failed to add book",
+        });
       }
     } finally {
       setIsAdding(false);
@@ -207,11 +216,19 @@ const BookDetailPage = () => {
                 onClick={handleAddToCollection}
                 disabled={inCollection || isAdding}
                 className="btn-add-collection"
+                data-testid="add-to-collection-btn"
               >
-                {isAdding ? "Adding..." : inCollection ? "✓ In Your Collection" : "+ Add to Collection"}
+                {isAdding
+                  ? "Adding..."
+                  : inCollection
+                    ? "✓ In Your Collection"
+                    : "+ Add to Collection"}
               </button>
               {collectionMessage && (
-                <p className={`collection-message collection-message--${collectionMessage.type}`} aria-live="polite">
+                <p
+                  className={`collection-message collection-message--${collectionMessage.type}`}
+                  aria-live="polite"
+                >
                   {collectionMessage.text}
                 </p>
               )}

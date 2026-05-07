@@ -79,8 +79,8 @@ export default function MyCollection() {
       {confirmRemoveId && (
         <div className="confirm-remove-bar" aria-live="polite">
           <span>Remove this book from your collection?</span>
-          <button className="btn-confirm-yes" onClick={handleConfirmRemove}>Yes, remove</button>
-          <button className="btn-confirm-cancel" onClick={() => setConfirmRemoveId(null)}>Cancel</button>
+          <button className="btn-confirm-yes" data-testid="confirm-remove-yes" onClick={handleConfirmRemove}>Yes, remove</button>
+          <button className="btn-confirm-cancel" data-testid="confirm-remove-cancel" onClick={() => setConfirmRemoveId(null)}>Cancel</button>
         </div>
       )}
 

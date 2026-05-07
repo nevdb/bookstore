@@ -80,42 +80,69 @@ class BookController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->get('q', '');
+        $query = trim((string) $request->get('q', ''));
 
-        if (empty($query)) {
+        if ($query === '') {
             return response()->json([
                 'message' => 'Search query is required',
-                'data' => [],
+                'data'    => [],
             ], 400);
         }
 
+        // Reject queries that contain no letters or numbers (e.g. "%", "_", "***").
+        // Prevents abusive LIKE-wildcard scans / unbounded queries.
+        if (! preg_match('/[\p{L}\p{N}]/u', $query)) {
+            return response()->json([
+                'message' => 'Search query must contain letters or numbers',
+                'data'    => [],
+            ], 400);
+        }
+
+        // Escape SQL LIKE wildcards in user input so '%' / '_' are treated literally.
+        $escaped = addcslashes($query, '%_\\');
+
         $books = Book::with(['author', 'genre'])
-            ->where('title', 'like', "%{$query}%")
-            ->orWhereHas('author', function($q) use ($query) {
-                $q->where('name', 'like', "%{$query}%");
-            })
-            ->orWhereHas('genre', function($q) use ($query) {
-                $q->where('name', 'like', "%{$query}%");
+            ->where(function ($w) use ($escaped) {
+                $w->where('title', 'like', "%{$escaped}%")
+                  ->orWhereHas('author', fn ($q) => $q->where('name', 'like', "%{$escaped}%"))
+                  ->orWhereHas('genre',  fn ($q) => $q->where('name',  'like', "%{$escaped}%"));
             })
             ->paginate(12);
 
-        return response()->json($books);
+        return $this->paginatedResponse($books);
     }
 
     public function filter(Request $request)
     {
         $query = Book::with(['author', 'genre']);
 
-        if ($request->has('genre_id') && !empty($request->get('genre_id'))) {
+        if ($request->filled('genre_id')) {
             $query->where('genre_id', $request->get('genre_id'));
         }
 
-        if ($request->has('author_id') && !empty($request->get('author_id'))) {
+        if ($request->filled('author_id')) {
             $query->where('author_id', $request->get('author_id'));
         }
 
-        $books = $query->paginate(12);
+        return $this->paginatedResponse($query->paginate(12));
+    }
 
-        return response()->json($books);
+    /**
+     * Return a paginated JSON response that exposes BOTH:
+     *  - the flat Laravel paginator fields (current_page, last_page, total, per_page, data, ...)
+     *    used by the existing frontend (BooksContext), and
+     *  - a nested "meta" block expected by the API tests.
+     */
+    private function paginatedResponse(\Illuminate\Contracts\Pagination\LengthAwarePaginator $p)
+    {
+        $payload = $p->toArray();
+        $payload['meta'] = [
+            'total'        => $p->total(),
+            'per_page'     => $p->perPage(),
+            'current_page' => $p->currentPage(),
+            'last_page'    => $p->lastPage(),
+        ];
+
+        return response()->json($payload);
     }
 }

@@ -2,3 +2,21 @@ node_modules/
 dist/
 coverage/
 .env
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/blob-report/
+playwright-results.json
+
+# Cypress
+/cypress/screenshots/
+/cypress/videos/
+/cypress/downloads/
+
+# Local logs / scratch output
+test_output.txt
+test_output_verbose.txt
+coverage_snapshot.txt
+*.log

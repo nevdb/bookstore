@@ -34,7 +34,7 @@ function CollectionItem({ userBook, onUpdate, onRemove }) {
   };
 
   return (
-    <div className="collection-item">
+    <div className="collection-item" data-testid="collection-item">
       <div className="book-info">
         <h3>{userBook.book.title}</h3>
         <p className="author">by {userBook.book.author.name}</p>

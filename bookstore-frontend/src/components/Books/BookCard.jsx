@@ -24,7 +24,7 @@ const BookCard = ({ book, isAdmin = false, onEdit, onDelete }) => {
   };
 
   return (
-    <div className="book-card" onClick={handleClick}>
+    <div className="book-card" data-testid="book-card" onClick={handleClick}>
       <div className="book-card-image">
         {!book.cover_url ? (
           <img src="/default-book.png" alt="Missing cover" loading="lazy" />
