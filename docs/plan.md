@@ -569,7 +569,7 @@ src/
 - [x] Frontend: Create author form
 - [x] Frontend: Edit author form
 - [x] Frontend: Delete author confirmation
-- [ ] Testing: Author CRUD permissions
+- [x] Testing: Author CRUD permissions
 
 ### Phase 7: Admin Genre Management (Create, Update, Delete)
 
@@ -578,7 +578,7 @@ src/
 - [x] Backend: Delete genre API (admin only)
 - [x] Frontend: Admin genre management page
 - [x] Frontend: Create/edit/delete genre operations
-- [ ] Testing: Genre management permissions
+- [x] Testing: Genre management permissions
 
 ### Phase 8: Search & Filter (System-wide & Collection)
 
@@ -588,7 +588,7 @@ src/
 - [x] Frontend: Search component for system books
 - [x] Frontend: Search/filter for personal collection
 - [x] Frontend: Sorting options
-- [ ] Testing: Search accuracy and edge cases
+- [x] Testing: Search accuracy and edge cases
 
 ### Phase 9: Dashboards (User & Admin)
 
@@ -617,30 +617,30 @@ src/
 - [x] Write unit tests for React components (Components, Pages, Hooks)
 - [ ] Test utilities (validators, formatters, roleCheck)
 - [x] Test context providers (AuthContext, BooksContext)
-- [x] Test custom hooks (useAuth, useIsAdmin, useSystemBooks, useUserCollection)
+- [x] Test custom hooks (useBooks, useIsAdmin)
 - [x] Aim for 70%+ code coverage
 
 **End-to-End Tests (Playwright)**
 
-- [ ] Setup Playwright with multiple browsers (Chrome, Firefox, Safari)
-- [ ] Test user workflows:
-  - [ ] User signup and login
-  - [ ] Browse system library
-  - [ ] Add/remove books from collection
-  - [ ] Update personal book info (rating, status, notes)
-  - [ ] Search and filter personal collection
-- [ ] Test admin workflows:
-  - [ ] Admin login with role verification
-  - [ ] Create/edit/delete books (admin only)
-  - [ ] Create/edit/delete authors (admin only)
-  - [ ] Create/edit/delete genres (admin only)
-- [ ] Test role-based access (verify regular users cannot access admin functions)
-- [ ] Cross-browser testing (Chrome, Firefox, Safari)
-- [ ] Test responsive design
+- [x] Setup Playwright with multiple browsers (Chrome, Firefox, Safari)
+- [x] Test user workflows:
+  - [x] User signup and login
+  - [x] Browse system library
+  - [x] Add/remove books from collection
+  - [x] Update personal book info (rating, status, notes)
+  - [x] Search and filter personal collection
+- [x] Test admin workflows:
+  - [x] Admin login with role verification
+  - [x] Create/edit/delete books (admin only)
+  - [x] Create/edit/delete authors (admin only)
+  - [x] Create/edit/delete genres (admin only)
+- [x] Test role-based access (verify regular users cannot access admin functions)
+- [x] Cross-browser testing (Chrome, Firefox, Safari)
+- [x] Test responsive design
 
 **Backend Unit Tests (Laravel)**
 
-- [ ] Setup PHPUnit test environment
+- [x] Setup PHPUnit test environment
 - [ ] Model tests (relationships, validations)
 - [ ] API endpoint tests (all routes in API Endpoints section)
 - [ ] Authorization/permission tests (admin vs user operations)
